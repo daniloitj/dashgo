@@ -7,7 +7,8 @@ import { Sidebar } from "../../components/Sidebar";
 import NextLink from 'next/link';
 import { useUsers } from "../../hooks/useUsers";
 import { queryClient } from "../../services/queryClient";
-import { apiMock as api } from "../../services/axios/api";
+import { apiMock as api, setupAPIClient } from "../../services/axios/api";
+import { withSSRAuth } from "../../services/utils/withSSRAuth";
 type User = {
 	id: string;
 	name: string;
@@ -120,3 +121,16 @@ export default function UserList() {
 		</Box>  
     )
 }
+
+export const getServerSideProps = withSSRAuth(async (ctx) => {
+    const apiClient = setupAPIClient(ctx);
+
+    const response = await apiClient.get('/me');
+
+    return {
+        props:{}
+    }
+}, {
+	permissions:['metrics.list'],
+	roles:['administrator'],
+});
