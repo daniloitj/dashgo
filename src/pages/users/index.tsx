@@ -7,7 +7,7 @@ import { Sidebar } from "../../components/Sidebar";
 import NextLink from 'next/link';
 import { useUsers } from "../../hooks/useUsers";
 import { queryClient } from "../../services/queryClient";
-import { api } from "../../services/axios/api";
+import { apiMock as api } from "../../services/axios/api";
 type User = {
 	id: string;
 	name: string;

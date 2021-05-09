@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { api } from "../services/axios/api";
+import { apiMock as api } from "../services/axios/api";
 
 type GetUsersResponse<T> = {
 	users: T[];

@@ -8,7 +8,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMutation } from 'react-query';
-import { api } from "../../services/axios/api";
+import { apiMock as api } from "../../services/axios/api";
 import { queryClient } from "../../services/queryClient";
 import { useRouter } from "next/router";
 

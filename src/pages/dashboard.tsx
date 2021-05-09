@@ -1,9 +1,12 @@
 import { Box, Flex, SimpleGrid, Text, theme } from "@chakra-ui/react";
-import React from "react";
+import React, { useContext } from "react";
 import { Header } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
 import dynamic from 'next/dynamic';
 import { ApexOptions } from 'apexcharts'
+import { AuthContext } from "../contexts/AuthContext";
+import { withSSRAuth } from "../services/utils/withSSRAuth";
+import { setupAPIClient } from "../services/axios/api";
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 const options: ApexOptions = {
@@ -49,6 +52,7 @@ const series = [
 ];
 
 const Dashboard = () => {
+    const { user } = useContext(AuthContext)
     return (
         <Flex direction="column" h="100vh">
             <Header />
@@ -68,5 +72,16 @@ const Dashboard = () => {
         </Flex>
     )
 }
+
+export const getServerSideProps = withSSRAuth(async (ctx) => {
+    const apiClient = setupAPIClient(ctx);
+
+    const response = await apiClient.get('/me');
+    console.log(response.data);
+
+    return {
+        props:{}
+    }
+});
 
 export default Dashboard;

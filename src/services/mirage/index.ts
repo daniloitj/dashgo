@@ -56,6 +56,7 @@ export const makeServer = () => {
 			// Reset para não conflitar com o api routes do next
 			this.namespace = '';
 			this.passthrough(); // Como se fosse o next() de um middleware em node, executa o que vem depois
+			this.passthrough('http://localhost:3333/**')
 		}
 	})
 
